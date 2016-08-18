@@ -1,0 +1,59 @@
+{% load i18n pages_tags blog_tags keyword_tags mezzanine_tags %}
+
+    <div class="col-md-3 col-sm-6">
+        <h4>Contact Information</h4>
+        <p>Phone: +23057287179 / +23057261460<br>
+
+        <a href="mailto:info.paradisenest@gmail.com">
+        Email: info.paradisenest@gmail.com</a></p>
+
+        <strong>Hours of Operation</strong>
+        <p>Mon-Fri: 9-5pm<br>
+           Sat: 10-4pm<br>
+           Sun: 9h-12h</p>
+
+    </div>
+
+  
+	<div class="col-md-3 col-sm-6">
+        <h4>Address</h4>
+        <adresse>
+            Paradise Nest<br>
+            Royal Road<br>
+            Black River<br>
+            Mauritius<br>
+            <a href="https://goo.gl/maps/yFL57Dig6Jx"><b>Google Map</b></a>
+        </adresse>
+       
+       
+    </div> <!--/.col-md-3-->
+<div class="col-md-3 col-sm-6">
+		{% block blog_recent_posts %}
+			{% blog_recent_posts 5 as recent_posts %}
+				{% if recent_posts %}
+                    <h4>{% trans "Recent Posts" %}</h4>
+                    <div>
+						{% for recent_post in recent_posts %}
+                        <div class="media">
+                            <div class="pull-left">
+								{% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
+								
+								<a href="{{ blog_post.get_absolute_url }}">
+									<img width="100%" class="img-responsive img-blog" src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 90 90 %}">
+								</a>
+									
+								{% endif %}
+                                
+                            </div>
+                            <div class="media-body">
+                                <span class="media-heading"><a href="{{ recent_post.get_absolute_url }}">{{ recent_post.title }}</a></span>
+                                <small class="muted">{% blocktrans with sometime=recent_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}</small>
+                            </div>
+                        </div>
+                     
+                    </div>  
+                    {% endfor %}
+              
+                {% endif %}
+{% endblock %}
+</div>
